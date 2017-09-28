@@ -32,8 +32,6 @@ open class MessagesViewController: UIViewController {
 
     open var messageInputBar = MessageInputBar()
 
-    private var messageInputBarCopy: MessageInputBar?
-
     private var isFirstLayout: Bool = true
 
     override open var canBecomeFirstResponder: Bool {
@@ -64,23 +62,12 @@ open class MessagesViewController: UIViewController {
 
     }
 
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if isFirstLayout {
-            setupMessageInputBarCopy()
-        }
-    }
-
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        removeMessageInputBarCopy()
-    }
-
     open override func viewDidLayoutSubviews() {
         // Hack to prevent animation of the contentInset after viewDidAppear
         if isFirstLayout {
             addKeyboardObservers()
             messagesCollectionView.contentInset.bottom = messageInputBar.frame.height
+            messagesCollectionView.scrollIndicatorInsets.bottom = messageInputBar.frame.height
             isFirstLayout = false
         }
     }
@@ -136,21 +123,6 @@ open class MessagesViewController: UIViewController {
         let bottom = messagesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 
         NSLayoutConstraint.activate([top, bottom, trailing, leading])
-    }
-
-    // MARK: - MessageInputBar
-    // Fixes bug where MessageInputBar text renders after viewDidAppear
-
-    private func setupMessageInputBarCopy() {
-        messageInputBarCopy = messageInputBar.createCopy()
-        guard let copy = messageInputBarCopy else { return }
-        view.addSubview(copy)
-        copy.addConstraints(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-    }
-
-    private func removeMessageInputBarCopy() {
-        messageInputBarCopy?.removeFromSuperview()
-        messageInputBarCopy = nil
     }
 }
 
@@ -274,11 +246,15 @@ extension MessagesViewController {
 
         if (keyboardEndFrame.origin.y + keyboardEndFrame.size.height) > view.frame.size.height {
             // Hardware keyboard is found
-            messagesCollectionView.contentInset.bottom = view.frame.size.height - keyboardEndFrame.origin.y
+            let bottomInset = view.frame.size.height - keyboardEndFrame.origin.y
+            messagesCollectionView.contentInset.bottom = bottomInset
+            messagesCollectionView.scrollIndicatorInsets.bottom = bottomInset
+
         } else {
             //Software keyboard is found
             let bottomInset = keyboardEndFrame.height > messageInputBar.frame.height ? keyboardEndFrame.height : messageInputBar.frame.height
             messagesCollectionView.contentInset.bottom = bottomInset
+            messagesCollectionView.scrollIndicatorInsets.bottom = bottomInset
         }
         
     }
