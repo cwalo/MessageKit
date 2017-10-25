@@ -35,6 +35,8 @@ open class MessagesCollectionView: UICollectionView {
     open weak var messagesLayoutDelegate: MessagesLayoutDelegate?
 
     open weak var messageCellDelegate: MessageCellDelegate?
+    
+    open weak var typingIndicatorDelegate: TypingIndicatorDisplayDelegate?
 
     open var showsDateHeaderAfterTimeInterval: TimeInterval = 3600
 

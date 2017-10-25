@@ -41,6 +41,8 @@ final class MessagesCollectionViewLayoutAttributes: UICollectionViewLayoutAttrib
 
     var cellBottomLabelFrame: CGRect = .zero
     var cellBottomLabelInsets: UIEdgeInsets = .zero
+    
+    var typingIndicatorFrame: CGRect = .zero
 
     // MARK: - Methods
 
@@ -56,6 +58,8 @@ final class MessagesCollectionViewLayoutAttributes: UICollectionViewLayoutAttrib
         copy.cellTopLabelInsets = cellTopLabelInsets
         copy.cellBottomLabelFrame = cellBottomLabelFrame
         copy.cellBottomLabelInsets = cellBottomLabelInsets
+        copy.typingIndicatorFrame = typingIndicatorFrame
+
         return copy
         // swiftlint:enable force_cast
     }

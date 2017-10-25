@@ -34,6 +34,9 @@ open class MessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
             emojiLabelFont = messageLabelFont.withSize(2 * messageLabelFont.pointSize)
         }
     }
+    
+    open var typingIndicatorFont: UIFont
+    
     private var emojiLabelFont: UIFont
 
     open var avatarAlwaysLeading: Bool {
@@ -71,7 +74,8 @@ open class MessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
         messageLabelFont = UIFont.preferredFont(forTextStyle: .body)
         emojiLabelFont = messageLabelFont.withSize(2 * messageLabelFont.pointSize)
-
+        typingIndicatorFont = UIFont.preferredFont(forTextStyle: .subheadline)
+        
         avatarAlwaysLeading = false
         avatarAlwaysTrailing = false
 
@@ -117,8 +121,12 @@ open class MessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
         guard let messagesCollectionView = messagesCollectionView else { return }
         guard let dataSource = messagesCollectionView.messagesDataSource else { return }
-
         let indexPath = attributes.indexPath
+        if indexPath.section == dataSource.numberOfMessages(in: messagesCollectionView) {
+            guard let indicatorDelegate = messagesCollectionView.typingIndicatorDelegate else { return }
+            attributes.typingIndicatorFrame = indicatorDelegate.frameForIndicatorView()
+            return
+        }
         let message = dataSource.messageForItem(at: indexPath, in: messagesCollectionView)
         let messagePadding = messageContainerPadding(for: message, at: indexPath)
         let messageInsets = messageLabelInsets(for: message, at: indexPath)
