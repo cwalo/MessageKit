@@ -326,7 +326,7 @@ extension MessagesViewController: TypingIndicatorDisplayDelegate {
         
     }
     
-    public func viewForTypingIndicator() -> UIView {
+    open func viewForTypingIndicator() -> UIView {
         
         let typingIndicatorLabel = UILabel()
         typingIndicatorLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
@@ -336,7 +336,7 @@ extension MessagesViewController: TypingIndicatorDisplayDelegate {
         
     }
     
-    public func frameForIndicatorView() -> CGRect {
+    open func frameForIndicatorView() -> CGRect {
         
         return CGRect(x: 5, y: 5, width: 325.0, height: 30.0)
         
