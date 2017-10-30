@@ -110,7 +110,6 @@ open class MessagesViewController: UIViewController {
     private func setupDelegates() {
         messagesCollectionView.delegate = self
         messagesCollectionView.dataSource = self
-        messagesCollectionView.typingIndicatorDelegate = self
     }
 
     private func registerReusableViews() {
@@ -314,7 +313,7 @@ extension MessagesViewController {
 }
 
 // MARK: Typing indicator
-extension MessagesViewController: TypingIndicatorDisplayDelegate {
+extension MessagesViewController {
     
     public func indexPathForTypingIndicator() -> IndexPath {
         
@@ -323,22 +322,6 @@ extension MessagesViewController: TypingIndicatorDisplayDelegate {
         }
         let numberOfMessages = messagesDataSource.numberOfMessages(in: messagesCollectionView)
         return IndexPath(item: 0, section: numberOfMessages)
-        
-    }
-    
-    open func viewForTypingIndicator() -> UIView {
-        
-        let typingIndicatorLabel = UILabel()
-        typingIndicatorLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        typingIndicatorLabel.textColor = UIColor.black
-        typingIndicatorLabel.text = "someone is typing..."
-        return typingIndicatorLabel
-        
-    }
-    
-    open func frameForIndicatorView() -> CGRect {
-        
-        return CGRect(x: 5, y: 5, width: 325.0, height: 30.0)
         
     }
     
