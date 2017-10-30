@@ -326,4 +326,20 @@ extension MessagesViewController: TypingIndicatorDisplayDelegate {
         
     }
     
+    public func viewForTypingIndicator() -> UIView {
+        
+        let typingIndicatorLabel = UILabel()
+        typingIndicatorLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        typingIndicatorLabel.textColor = UIColor.black
+        typingIndicatorLabel.text = "someone is typing..."
+        return typingIndicatorLabel
+        
+    }
+    
+    public func frameForIndicatorView() -> CGRect {
+        
+        return CGRect(x: 5, y: 5, width: 325.0, height: 30.0)
+        
+    }
+    
 }
