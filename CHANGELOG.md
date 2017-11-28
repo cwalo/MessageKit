@@ -6,6 +6,92 @@ The changelog for `MessageKit`. Also see the [releases](https://github.com/Messa
 
 ## Upcoming release
 
+### Fixed
+
+Fixes infinite loop when dismissing keyboard on iPhone X.
+[#350](https://github.com/MessageKit/MessageKit/pull/350) by [@nathantannar4](https://github.com/nathantannar4).
+
+## [[Prerelease] 0.10.2](https://github.com/MessageKit/MessageKit/releases/tag/0.10.2)
+
+### Fixed
+
+- Fixed `contentInset.top` adjustment of the `MessagesCollectionView` on iOS versions less than 11 where it was found that messages appeared under the navigation var
+[#334](https://github.com/MessageKit/MessageKit/pull/334) by [@nathantannar4](https://github.com/nathantannar4).
+
+- Fixed `cellbottomLabel` origin X for the `.messageLeading` alignment and
+origin Y so that the `cellBottomLabel` is always under the `MessageContainerView`.
+[#326](https://github.com/MessageKit/MessageKit/pull/326) by [@SD10](https://github.com/sd10). 
+
+- Fixed pixelation of `AvatarView`'s placeholder text initials.
+[#343](https://github.com/MessageKit/MessageKit/pull/343) by [@johnnyoin](https://github.com/johnnyoin).
+
+- Fixed `MessageLabel` address detection handler.
+[#341](https://github.com/MessageKit/MessageKit/pull/341) by [@zhongwuzw](https://github.com/zhongwuzw)
+
+- Fixed crash for escaping block in `InputBarItem`’s `setSize(newValue:animated)` method.
+[#342](https://github.com/MessageKit/MessageKit/pull/342) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+## [[Prerelease] 0.10.1](https://github.com/MessageKit/MessageKit/releases/tag/0.10.1)
+
+### Fixed
+
+-  Fixed a bug that caused a race condition to be met when invalidating the `intrinsicContentSize` of the `MessageInputBar` which froze the app during a "Select" or "Select All" long press
+[#313](https://github.com/MessageKit/MessageKit/pull/313) by [@zhongwuzw](https://github.com/nathantannar4).
+
+-  Fixed a bug that the `placeholderLabel` `subview` of `InputTextView` leads to ambiguous content size because of uncorrect `Auto Layout`.
+[#310](https://github.com/MessageKit/MessageKit/pull/310) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+-  Fixed a bug that the `leftStackView`、`rightStackView` `subview` of `MessageInputBar` leads to ambiguous `Auto Layout` issue because of typo.
+[#311](https://github.com/MessageKit/MessageKit/pull/311) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+### Changed
+
+-  Changed `InputStackView` default `alignment` from `.fill` to `.bottom`.
+[#311](https://github.com/MessageKit/MessageKit/pull/311) by [@zhongwuzw](https://github.com/zhongwuzw).
+
+## [[Prerelease] 0.10.0](https://github.com/MessageKit/MessageKit/releases/tag/0.10.0)
+
+### Added
+
+- Added `removedCachedAttributes(for:MessageType)`, `removeAllCachedAttributes()`, and `attributesCacheMaxSize` to
+`MessagesCollectionViewFlowLayout` to manage the caching of layout information for messages.
+[#263](https://github.com/MessageKit/MessageKit/pull/263) by [@SD10](https://github.com/sd10).
+
+-  Created `SeparatorLine` and `InputStackView` as their own subclass of `UIView` and `UIStackView` respectively. This just improves reusability.
+[#273](https://github.com/MessageKit/MessageKit/pull/273) by [@nathantannar4](https://github.com/nathantannar4).
+
+### Changed
+
+-  **Breaking Change**  The properties `leftStackView`, `rightStackView` and `bottomStackView` in `MessageInputBar` are now of type `InputStackView`. The property `separatorLine` is also now of type `SeparatorLine` in `MessageInputBar`.
+[#273](https://github.com/MessageKit/MessageKit/pull/273) by [@nathantannar4](https://github.com/nathantannar4).
+
+- Layout information is now being cached by `MessagesCollectionViewFlowLayout` for each `MessageType` using the
+`messageId` property. (This means if your layout is dynamic over the `IndexPath` you need to handle cache invalidation).
+[#263](https://github.com/MessageKit/MessageKit/pull/263) by [@SD10](https://github.com/sd10).
+
+- Layout anchors for the `MessagesCollectionView` and `MessageInputBar` now include the safeAreaLayoutGuide to fix layout issues on iPhone X
+[#280](https://github.com/MessageKit/MessageKit/pull/280) by [@nathantannar4](https://github.com/nathantannar4).
+
+### Fixed
+
+-  Fixed a bug that prevented the `textAllignment` property of `InputTextView`'s `placeholderLabel` from having noticable differences when changed to `.center` or `.right`.
+[#262](https://github.com/MessageKit/MessageKit/pull/262) by [@nathantannar4](https://github.com/nathantannar4).
+
+-  Initial `contentInset.bottom` reference changed from `messageInputBar` to `inputAccessoryView` to allow custom `inputAccessoryView`'s that don't break the initial layout.
+[#267](https://github.com/MessageKit/MessageKit/pull/262) by [@nathantannar4](https://github.com/nathantannar4).
+
+-  Changes the `MessageInputBar` bottom `UIStackView`'s `bottomAnchor` to `layoutMarginsGuide.bottomAnchor` to fix issues on the iPhone X.
+[#266](https://github.com/MessageKit/MessageKit/pull/266) by [@nathantannar4](https://github.com/nathantannar4).
+
+-  Initial `contentInset.bottom` reference changed from `messageInputBar` to `inputAccessoryView` to allow custom inp`inputAccessoryView`'s that don't break the initial layout
+[#267](https://github.com/MessageKit/MessageKit/pull/262) by [@nathantannar4](https://github.com/nathantannar4).
+
+### Removed
+
+- **Breaking Change** Removed `additionalTopContentInset` property of `MessagesViewController` because this is no longer necessary
+when `extendedLayoutIncludesOpaqueBars` is `true`.
+[#250](https://github.com/MessageKit/MessageKit/pull/250) by [@SD10](https://github.com/SD10).
+
 ## [[Prerelease] 0.9.0](https://github.com/MessageKit/MessageKit/releases/tag/0.9.0)
 
 ### Added

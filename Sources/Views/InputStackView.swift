@@ -22,37 +22,50 @@
  SOFTWARE.
  */
 
-import Foundation
+import UIKit
 
-class TestMessagesViewControllerModel: MessagesViewController, MessagesDisplayDelegate {
+/**
+ A UIStackView that's intended for holding `InputBarButtonItem`s
+ 
+ ## Important Notes ##
+ 1. Default alignment is .fill
+ 2. Default distribution is .fill
+ 3. The distribution property needs to be based on its arranged subviews intrinsicContentSize so it is not recommended to change it
+ */
+open class InputStackView: UIStackView {
     
-    var messageList: [TestMessage] = []
-    
-    static let sender1 = Sender(id: "1", displayName: "Dan")
-    static let sender2 = Sender(id: "2", displayName: "jobs")
-    
-    let testMessage1 = TestMessage(text: "Hi", sender: sender1, messageId: "asdf")
-    let testMessage2 = TestMessage(text: "sup", sender: sender2, messageId: "dddf")
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        messageList = [testMessage1, testMessage2]
-        self.messagesCollectionView.messagesDataSource = self
-    }
-}
-
-// - MARK: MessagesDataSource conformace
-extension TestMessagesViewControllerModel: MessagesDataSource {
-    
-    func currentSender() -> Sender {
-        return Sender(id: "1", displayName: "Dan")
+    /// The stack view position in the MessageInputBar
+    ///
+    /// - left: Left Stack View
+    /// - right: Bottom Stack View
+    /// - bottom: Left Stack View
+    public enum Position {
+        case left, right, bottom
     }
     
-    func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
-        return messageList.count
+    // MARK: Initialization
+    
+    convenience init(axis: UILayoutConstraintAxis, spacing: CGFloat) {
+        self.init(frame: .zero)
+        self.axis = axis
+        self.spacing = spacing
     }
     
-    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        return messageList[indexPath.section]
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    required public init(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    // MARK: - Setup
+    
+    /// Sets up the default properties
+    open func setup() {
+        translatesAutoresizingMaskIntoConstraints = false
+        distribution = .fill
+        alignment = .bottom
     }
 }
