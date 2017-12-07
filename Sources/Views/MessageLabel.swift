@@ -379,7 +379,7 @@ open class MessageLabel: UILabel, UIGestureRecognizerDelegate {
 
     // MARK: - Gesture Handling
 
-    private func stringIndex(at location: CGPoint) -> Int? {
+    public func stringIndex(at location: CGPoint) -> Int? {
         guard textStorage.length > 0 else { return nil }
 
         var location = location
@@ -419,6 +419,7 @@ open class MessageLabel: UILabel, UIGestureRecognizerDelegate {
         guard let index = stringIndex(at: touchLocation) else { return }
 
         delegate?.didTapLabel(gesture, at: index, in: textStorage.string)
+    
         for (detectorType, ranges) in rangesForDetectors {
             for (nsRange, value) in ranges {
                 guard let range = Range(nsRange) else { return }

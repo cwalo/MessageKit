@@ -153,7 +153,7 @@ open class MessageCollectionViewCell<ContentView: UIView>: UICollectionViewCell,
         avatarView.addGestureRecognizer(avatarTapGesture)
         avatarView.isUserInteractionEnabled = true
 
-        let messageTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMessage))
+        let messageTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMessage(_:)))
         messageContainerView.addGestureRecognizer(messageTapGesture)
         messageContainerView.isUserInteractionEnabled = true
         self.messageTapGesture = messageTapGesture
@@ -174,7 +174,7 @@ open class MessageCollectionViewCell<ContentView: UIView>: UICollectionViewCell,
         delegate?.didTapAvatar(in: self)
     }
 
-  @objc func didTapMessage() {
+    @objc func didTapMessage(_ gesture: UITapGestureRecognizer) {
         delegate?.didTapMessage(in: self)
     }
 

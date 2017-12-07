@@ -36,6 +36,8 @@ public protocol MessageCellDelegate: class, MessageLabelDelegate {
     /// `indexPath(for: cell)` method. Then using the returned `IndexPath` with the `MessagesDataSource`
     /// method `messageForItem(at:indexPath:messagesCollectionView)`.
     func didTapMessage<T>(in cell: MessageCollectionViewCell<T>)
+    
+    func didTapMessage<T>(in cell: MessageCollectionViewCell<T>, at indexOfString: Int)
 
     /// Triggered when a touch occurs in the `AvatarView`.
     ///
@@ -72,6 +74,8 @@ public protocol MessageCellDelegate: class, MessageLabelDelegate {
 public extension MessageCellDelegate {
 
     func didTapMessage<T>(in cell: MessageCollectionViewCell<T>) {}
+    
+    func didTapMessage<T>(in cell: MessageCollectionViewCell<T>, at indexOfString: Int) {}
 
     func didTapAvatar<T>(in cell: MessageCollectionViewCell<T>) {}
 
