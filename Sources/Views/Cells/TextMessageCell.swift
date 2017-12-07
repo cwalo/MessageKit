@@ -81,10 +81,11 @@ open class TextMessageCell: MessageCollectionViewCell<MessageLabel> {
         super.didTapMessage(gesture)
         
         let touchLocation = gesture.location(in: self)
-        
-        print("LOCATION: \(touchLocation)")
+        let convertedPoint = self.convert(touchLocation, to: messageContentView)
+
+        print("LOCATION: \(convertedPoint)")
         let label = messageContentView
-        guard let index = label.stringIndex(at: touchLocation) else { return }
+        guard let index = label.stringIndex(at: convertedPoint) else { return }
         
         print("INDEX: \(index)")
         delegate?.didTapMessage(in: self, at: index)
