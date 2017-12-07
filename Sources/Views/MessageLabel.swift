@@ -418,7 +418,7 @@ open class MessageLabel: UILabel, UIGestureRecognizerDelegate {
         let touchLocation = gesture.location(ofTouch: 0, in: self)
         guard let index = stringIndex(at: touchLocation) else { return }
 
-        delegate?.didTapLabel(gesture, at: index)
+        delegate?.didTapLabel(gesture, at: index, in: textStorage.string)
         for (detectorType, ranges) in rangesForDetectors {
             for (nsRange, value) in ranges {
                 guard let range = Range(nsRange) else { return }

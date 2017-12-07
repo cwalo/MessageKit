@@ -26,7 +26,7 @@ import Foundation
 
 public protocol MessageLabelDelegate: class {
     
-    func didTapLabel(_ gesture: UIGestureRecognizer, at index: Int)
+    func didTapLabel(_ gesture: UIGestureRecognizer, at index: Int, in text: String)
     
     func didSelectAddress(_ addressComponents: [String: String])
 
@@ -40,7 +40,7 @@ public protocol MessageLabelDelegate: class {
 
 public extension MessageLabelDelegate {
     
-    func didTapLabel(_ gesture: UIGestureRecognizer, at index: Int) {}
+    func didTapLabel(_ gesture: UIGestureRecognizer, at index: Int, in text: String) {}
 
     func didSelectAddress(_ addressComponents: [String: String]) {}
 
