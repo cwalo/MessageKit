@@ -25,7 +25,9 @@
 import Foundation
 
 public protocol MessageLabelDelegate: class {
-
+    
+    func didTapLabel(_ gesture: UIGestureRecognizer, at index: Int)
+    
     func didSelectAddress(_ addressComponents: [String: String])
 
     func didSelectDate(_ date: Date)
@@ -37,6 +39,8 @@ public protocol MessageLabelDelegate: class {
 }
 
 public extension MessageLabelDelegate {
+    
+    func didTapLabel(_ gesture: UIGestureRecognizer, at index: Int) {}
 
     func didSelectAddress(_ addressComponents: [String: String]) {}
 
