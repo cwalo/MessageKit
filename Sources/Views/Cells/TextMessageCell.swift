@@ -80,7 +80,7 @@ open class TextMessageCell: MessageCollectionViewCell<MessageLabel> {
     @objc override func didTapMessage(_ gesture: UITapGestureRecognizer) {
         super.didTapMessage(gesture)
         
-        let touchLocation = gesture.location(ofTouch: 0, in: self)
+        let touchLocation = gesture.location(in: self)
         
         print("LOCATION: \(touchLocation)")
         let label = messageContentView
