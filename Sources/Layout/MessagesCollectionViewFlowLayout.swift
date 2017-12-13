@@ -471,7 +471,12 @@ private extension MessagesCollectionViewFlowLayout {
             messageContainerSize.width += attributes.messageLabelHorizontalInsets
             messageContainerSize.height += attributes.messageLabelVerticalInsets
         case .attributedText(let text):
-            messageContainerSize = labelSize(for: text, considering: maxWidth)
+            let stringAttributes = text.attributes(at: 0, effectiveRange: nil)
+            if let font = stringAttributes[NSAttributedStringKey.font] as? UIFont {
+                messageContainerSize = labelSize(for: text.string, considering: maxWidth, and: font)
+            } else {
+                messageContainerSize = labelSize(for: text, considering: maxWidth)
+            }
             messageContainerSize.width += attributes.messageLabelHorizontalInsets
             messageContainerSize.height += attributes.messageLabelVerticalInsets
         case .emoji(let text):
