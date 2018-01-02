@@ -61,6 +61,8 @@
 		B7A03F781F866A30006AEF79 /* TestMessagesViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A03F761F866A30006AEF79 /* TestMessagesViewControllerModel.swift */; };
 		B7A03F791F866A30006AEF79 /* TestMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A03F771F866A30006AEF79 /* TestMessageModel.swift */; };
 		B7A03F7B1F866B85006AEF79 /* MessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A03F7A1F866B85006AEF79 /* MessageCollectionViewCell.swift */; };
+		E42345A81F9E9733005DA7D3 /* TypingIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42345A71F9E9733005DA7D3 /* TypingIndicatorCell.swift */; };
+		E42A409B1F9E767A001B6197 /* TypingIndicatorDisplayDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42A409A1F9E767A001B6197 /* TypingIndicatorDisplayDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,8 @@
 		B7A03F761F866A30006AEF79 /* TestMessagesViewControllerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMessagesViewControllerModel.swift; sourceTree = "<group>"; };
 		B7A03F771F866A30006AEF79 /* TestMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMessageModel.swift; sourceTree = "<group>"; };
 		B7A03F7A1F866B85006AEF79 /* MessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		E42345A71F9E9733005DA7D3 /* TypingIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorCell.swift; sourceTree = "<group>"; };
+		E42A409A1F9E767A001B6197 /* TypingIndicatorDisplayDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorDisplayDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 				B7A03F391F866946006AEF79 /* MediaMessageCell.swift */,
 				B7A03F7A1F866B85006AEF79 /* MessageCollectionViewCell.swift */,
 				B7A03F361F866946006AEF79 /* TextMessageCell.swift */,
+				E42345A71F9E9733005DA7D3 /* TypingIndicatorCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 				B7A03F561F8669C9006AEF79 /* MessagesDisplayDelegate.swift */,
 				B7A03F541F8669C9006AEF79 /* MessagesLayoutDelegate.swift */,
 				B7A03F511F8669C9006AEF79 /* MessageType.swift */,
+				E42A409A1F9E767A001B6197 /* TypingIndicatorDisplayDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -456,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E42345A81F9E9733005DA7D3 /* TypingIndicatorCell.swift in Sources */,
 				B7A03F2B1F866895006AEF79 /* AvatarHorizontalAlignment.swift in Sources */,
 				B7A03F3C1F866946006AEF79 /* LocationMessageCell.swift in Sources */,
 				B7A03F5B1F8669CA006AEF79 /* MessageType.swift in Sources */,
@@ -468,6 +475,7 @@
 				B7A03F4B1F86694F006AEF79 /* MessageContainerView.swift in Sources */,
 				B7A03F281F866895006AEF79 /* LocationMessageSnapshotOptions.swift in Sources */,
 				B7A03F5D1F8669CA006AEF79 /* LocationMessageDisplayDelegate.swift in Sources */,
+				E42A409B1F9E767A001B6197 /* TypingIndicatorDisplayDelegate.swift in Sources */,
 				B7A03F481F86694F006AEF79 /* InputTextView.swift in Sources */,
 				B7A03F6C1F8669EB006AEF79 /* UIView+Extensions.swift in Sources */,
 				B7A03F631F8669CA006AEF79 /* LocationMessageLayoutDelegate.swift in Sources */,

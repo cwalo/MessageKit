@@ -42,6 +42,14 @@ open class MessagesViewController: UIViewController {
             messagesCollectionView.contentInset.top = inset
         }
     }
+    
+    open var showTypingIndicator = false {
+        didSet {
+            if oldValue != showTypingIndicator {
+                messagesCollectionView.reloadData()
+            }
+        }
+    }
 
     private var isFirstLayout: Bool = true
 
@@ -109,6 +117,7 @@ open class MessagesViewController: UIViewController {
         messagesCollectionView.register(TextMessageCell.self)
         messagesCollectionView.register(MediaMessageCell.self)
         messagesCollectionView.register(LocationMessageCell.self)
+        messagesCollectionView.register(TypingIndicatorCell.self)
 
         messagesCollectionView.register(MessageFooterView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter)
         messagesCollectionView.register(MessageHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader)
@@ -151,7 +160,8 @@ extension MessagesViewController: UICollectionViewDataSource {
         guard let collectionView = collectionView as? MessagesCollectionView else { return 0 }
 
         // Each message is its own section
-        return collectionView.messagesDataSource?.numberOfMessages(in: collectionView) ?? 0
+        let numberOfMessages = collectionView.messagesDataSource?.numberOfMessages(in: collectionView) ?? 0
+        return showTypingIndicator ? numberOfMessages + 1 : numberOfMessages
     }
 
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -172,7 +182,16 @@ extension MessagesViewController: UICollectionViewDataSource {
         guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
             fatalError("MessagesDataSource has not been set.")
         }
-
+        
+        if indexPath == indexPathForTypingIndicator() {
+            guard let indicatorDelegate = messagesCollectionView.typingIndicatorDelegate else {
+                fatalError("Typing indicator delegate has not been set")
+            }
+            let cell = messagesCollectionView.dequeueReusableCell(TypingIndicatorCell.self, for: indexPath)
+            cell.configure(in: messagesCollectionView)
+            return cell
+        }
+        
         let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
 
         switch message.data {
@@ -223,8 +242,14 @@ extension MessagesViewController: UICollectionViewDataSource {
         guard let messagesCollectionView = collectionView as? MessagesCollectionView else { return .zero }
         guard let messagesDataSource = messagesCollectionView.messagesDataSource else { return .zero }
         guard let messagesLayoutDelegate = messagesCollectionView.messagesLayoutDelegate else { return .zero }
+        
         // Could pose a problem if subclass behaviors allows more than one item per section
         let indexPath = IndexPath(item: 0, section: section)
+        
+        if indexPath == indexPathForTypingIndicator() {
+            return .zero
+        }
+        
         let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
         return messagesLayoutDelegate.headerViewSize(for: message, at: indexPath, in: messagesCollectionView)
     }
@@ -233,6 +258,11 @@ extension MessagesViewController: UICollectionViewDataSource {
         guard let messagesCollectionView = collectionView as? MessagesCollectionView else { return .zero }
         guard let messagesDataSource = messagesCollectionView.messagesDataSource else { return .zero }
         guard let messagesLayoutDelegate = messagesCollectionView.messagesLayoutDelegate else { return .zero }
+        
+        if section == indexPathForTypingIndicator().section {
+            return .zero
+        }
+        
         // Could pose a problem if subclass behaviors allows more than one item per section
         let indexPath = IndexPath(item: 0, section: section)
         let message = messagesDataSource.messageForItem(at: indexPath, in: messagesCollectionView)
@@ -277,6 +307,21 @@ extension MessagesViewController {
             messagesCollectionView.contentInset.bottom = bottomInset
             messagesCollectionView.scrollIndicatorInsets.bottom = bottomInset
         }
+        
+    }
+    
+}
+
+// MARK: Typing indicator
+extension MessagesViewController {
+    
+    public func indexPathForTypingIndicator() -> IndexPath {
+        
+        guard let messagesDataSource = messagesCollectionView.messagesDataSource else {
+            fatalError("MessagesDataSource has not been set.")
+        }
+        let numberOfMessages = messagesDataSource.numberOfMessages(in: messagesCollectionView)
+        return IndexPath(item: 0, section: numberOfMessages)
         
     }
     
