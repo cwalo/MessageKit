@@ -58,6 +58,14 @@ open class MessagesViewController: UIViewController {
         return false
     }
     
+    public var keyboardFrame: CGRect? {
+        didSet {
+            if let frame = keyboardFrame {
+                keyboardFrameDidChange(frame)
+            }
+        }
+    }
+    
     /// A Boolean value used to determine if `viewDidLayoutSubviews()` has been called.
     private var isFirstLayout: Bool = true
 
@@ -101,6 +109,10 @@ open class MessagesViewController: UIViewController {
 
     deinit {
         removeKeyboardObservers()
+    }
+    
+    open func keyboardFrameDidChange(_ frame: CGRect) {
+        
     }
 
     // MARK: - Methods [Private]
@@ -297,7 +309,7 @@ fileprivate extension MessagesViewController {
     func handleKeyboardDidChangeState(_ notification: Notification) {
 
         guard let keyboardEndFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
-
+        
         if (keyboardEndFrame.origin.y + keyboardEndFrame.size.height) > UIScreen.main.bounds.height {
             // Hardware keyboard is found
             let bottomInset = view.frame.size.height - keyboardEndFrame.origin.y - iPhoneXBottomInset
@@ -311,9 +323,10 @@ fileprivate extension MessagesViewController {
             messagesCollectionView.scrollIndicatorInsets.bottom = bottomInset
         }
         
+        keyboardFrame = keyboardEndFrame
     }
     
-    fileprivate var keyboardOffsetFrame: CGRect {
+    var keyboardOffsetFrame: CGRect {
         guard let inputFrame = inputAccessoryView?.frame else { return .zero }
         return CGRect(origin: inputFrame.origin, size: CGSize(width: inputFrame.width, height: inputFrame.height - iPhoneXBottomInset))
     }
@@ -322,7 +335,7 @@ fileprivate extension MessagesViewController {
     /// is larger than the required offset for the MessagesCollectionView
     ///
     /// - Returns: The safeAreaInsets.bottom if its an iPhoneX, else 0
-    fileprivate var iPhoneXBottomInset: CGFloat {
+    var iPhoneXBottomInset: CGFloat {
         if #available(iOS 11.0, *) {
             guard UIScreen.main.nativeBounds.height == 2436 else { return 0 }
             return view.safeAreaInsets.bottom
